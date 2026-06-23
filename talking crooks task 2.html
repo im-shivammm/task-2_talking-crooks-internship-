@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 2 — Wireframe + Use Case Document | Talking Crooks IT Pvt. Ltd - Shivam Sharma.</title>
+<style>
+  :root {
+    --brand: #1a1a2e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --accent3: #16213e;
+    --teal: #00b4d8;
+    --green: #06d6a0;
+    --amber: #f4a261;
+    --surface: #ffffff;
+    --surface2: #f8f9fc;
+    --surface3: #f1f3f8;
+    --border: #e0e4ef;
+    --text: #1a1a2e;
+    --text2: #4a5168;
+    --text3: #8891aa;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f0f2f8;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── COVER PAGE ─────────────────── */
+  .cover {
+    background: var(--brand);
+    color: #fff;
+    padding: 64px 48px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(233,69,96,0.15);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(0,180,216,0.1);
+  }
+  .cover-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .cover h1 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover h1 span { color: var(--accent); }
+  .cover-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 3px;
+  }
+  .cover-meta-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .cover-toc {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-toc-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cover-toc-card:hover { background: rgba(255,255,255,0.12); }
+  .cover-toc-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .cover-toc-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .cover-toc-cat {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── MAIN LAYOUT ─────────────────── */
+  .main { max-width: 1060px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── SECTION DIVIDER ─────────────── */
+  .use-case-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 52px 0 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .uc-num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .uc-num.teal { background: #0077b6; }
+  .uc-num.green { background: #2d6a4f; }
+  .uc-title-block h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .uc-title-block .uc-why {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
+  .uc-num.teal ~ .uc-title-block .uc-why { color: #0077b6; }
+  .uc-num.green ~ .uc-title-block .uc-why { color: #2d6a4f; }
+
+  /* ── PROBLEM + USE CASE GRID ─────── */
+  .doc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .doc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .doc-card h3 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .doc-card p { font-size: 13.5px; color: var(--text2); line-height: 1.65; }
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text2);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--surface3);
+  }
+  .feature-list li:last-child { border-bottom: none; }
+  .feat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .feat-dot.teal { background: #0077b6; }
+  .feat-dot.green { background: #2d6a4f; }
+  .doc-card-full {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .doc-card-full h3 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .bv-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .bv-item {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .bv-item .bv-icon { font-size: 18px; margin-bottom: 4px; }
+  .bv-item .bv-label { font-size: 12px; font-weight: 600; color: var(--text); }
+  .bv-item .bv-desc { font-size: 11.5px; color: var(--text2); margin-top: 2px; }
+
+  /* ── WIREFRAME SECTION ───────────── */
+  .wf-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text3);
+    margin-bottom: 12px;
+  }
+  .screen-flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .flow-screen {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 13px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+  }
+  .flow-arrow {
+    color: var(--text3);
+    font-size: 13px;
+    font-weight: 300;
+  }
+  .wf-screens {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .wf-screen {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .wf-topbar {
+    background: var(--brand);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .wf-topbar.teal-bar { background: #023e8a; }
+  .wf-topbar.green-bar { background: #1b4332; }
+  .wf-topbar .dots { display: flex; gap: 4px; }
+  .wf-topbar .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+  .wf-body { padding: 10px 12px; }
+  .wf-note {
+    font-size: 10px;
+    color: var(--text3);
+    font-style: italic;
+    margin-top: 6px;
+    padding: 5px 8px;
+    background: #fffbe6;
+    border-radius: 5px;
+    border-left: 2px solid var(--amber);
+  }
+
+  /* Wireframe UI Elements */
+  .wf-input {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    height: 24px;
+    width: 100%;
+    margin: 4px 0;
+    position: relative;
+  }
+  .wf-input::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 8px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--text3);
+  }
+  .wf-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 100%;
+    text-align: center;
+  }
+  .wf-btn.teal-btn { background: #0077b6; }
+  .wf-btn.green-btn { background: #2d6a4f; }
+  .wf-btn.outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .wf-row {
+    display: flex;
+    gap: 6px;
+  }
+  .wf-stat {
+    flex: 1;
+    background: var(--surface3);
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin: 3px 0;
+  }
+  .wf-stat .stat-val {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+  .wf-stat .stat-lbl {
+    font-size: 9px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+  .wf-stat.accent .stat-val { color: var(--accent); }
+  .wf-stat.teal .stat-val { color: #0077b6; }
+  .wf-stat.green-val .stat-val { color: #2d6a4f; }
+  .wf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5px 0;
+  }
+  .wf-table th {
+    background: var(--surface3);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text3);
+    padding: 4px 6px;
+    text-align: left;
+  }
+  .wf-table td {
+    font-size: 10px;
+    color: var(--text2);
+    padding: 4px 6px;
+    border-bottom: 1px solid var(--surface3);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+  }
+  .badge-green { background: #d8f3dc; color: #2d6a4f; }
+  .badge-red { background: #ffe5e5; color: #c0392b; }
+  .badge-amber { background: #fff3cd; color: #a0522d; }
+  .badge-blue { background: #caf0f8; color: #023e8a; }
+  .wf-sidebar {
+    display: flex;
+    gap: 8px;
+  }
+  .wf-nav {
+    width: 40px;
+    flex-shrink: 0;
+  }
+  .wf-nav-item {
+    background: var(--surface3);
+    border-radius: 5px;
+    height: 20px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wf-nav-item.active { background: var(--accent); }
+  .wf-nav-item.active.teal { background: #0077b6; }
+  .wf-nav-item.active.green { background: #2d6a4f; }
+  .wf-nav-dot { width: 14px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.7); }
+  .wf-content { flex: 1; min-width: 0; }
+  .wf-pill {
+    display: inline-block;
+    background: var(--surface3);
+    border-radius: 12px;
+    font-size: 10px;
+    color: var(--text2);
+    padding: 3px 9px;
+    margin: 2px 2px 2px 0;
+  }
+  .wf-pill.active-pill { background: var(--accent); color: #fff; }
+  .wf-pill.teal-pill { background: #0077b6; color: #fff; }
+  .wf-pill.green-pill { background: #2d6a4f; color: #fff; }
+  .wf-chart-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 48px;
+    margin: 5px 0;
+  }
+  .bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    background: var(--accent);
+    opacity: 0.8;
+  }
+  .bar.teal { background: #0077b6; }
+  .bar.green { background: #2d6a4f; }
+  .bar.light { opacity: 0.35; }
+  .wf-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text3);
+    margin: 7px 0 3px;
+  }
+  .wf-list-item {
+    font-size: 10px;
+    color: var(--text2);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--surface3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wf-avatar {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--surface3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--text3);
+    margin-right: 5px;
+    flex-shrink: 0;
+  }
+  .wf-toggle {
+    width: 28px; height: 14px;
+    background: var(--accent);
+    border-radius: 7px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .wf-toggle::after {
+    content: '';
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    top: 2px; right: 2px;
+  }
+  .wf-toggle.teal { background: #0077b6; }
+  .wf-toggle.green { background: #2d6a4f; }
+  .wf-map-placeholder {
+    background: #e8f4f8;
+    border: 1px solid #bee3f8;
+    border-radius: 6px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #0077b6;
+    font-weight: 600;
+    margin: 4px 0;
+  }
+  .wf-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 6px 0;
+  }
+  .wf-text-line {
+    height: 8px;
+    background: var(--surface3);
+    border-radius: 4px;
+    margin: 3px 0;
+  }
+
+  /* ── FOOTER ──────────────────────── */
+  .footer {
+    background: var(--brand);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    margin-top: 60px;
+  }
+  .footer strong { color: rgba(255,255,255,0.85); }
+
+  @media (max-width: 760px) {
+    .cover { padding: 36px 20px 32px; }
+    .cover h1 { font-size: 26px; }
+    .cover-toc { grid-template-columns: 1fr; }
+    .doc-grid { grid-template-columns: 1fr; }
+    .wf-screens { grid-template-columns: 1fr; }
+    .bv-grid { grid-template-columns: 1fr; }
+    .main { padding: 24px 12px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">Talking Crooks IT Pvt. Ltd. · Task 2 · Tech / IT Track</div>
+  <h1>Wireframe + Use Case <span>Document</span></h1>
+  <p class="cover-sub">3 Real Business Automation Opportunities — Problem Analysis, Wireframes &amp; Use Cases</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><label>Intern</label><span>Shivam Sharma</span></div>
+    
+    
+    <div class="cover-meta-item"><label>Date</label><span>June 2026</span></div>
+  </div>
+  <div class="cover-toc">
+    <div class="cover-toc-card">
+      <div class="cover-toc-num">01</div>
+      <div class="cover-toc-title">Clinic Management Software</div>
+      <div class="cover-toc-cat">Healthcare · Appointments · Billing</div>
+    </div>
+    <div class="cover-toc-card">
+      <div class="cover-toc-num">02</div>
+      <div class="cover-toc-title">Restaurant Billing &amp; Order System</div>
+      <div class="cover-toc-cat">F&amp;B · KOT · Table Management</div>
+    </div>
+    <div class="cover-toc-card">
+      <div class="cover-toc-num">03</div>
+      <div class="cover-toc-title">Real Estate CRM</div>
+      <div class="cover-toc-cat">Property · Lead Tracking · Deals</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  USE CASE 01 — CLINIC MANAGEMENT                       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="use-case-header">
+  <div class="uc-num">01</div>
+  <div class="uc-title-block">
+    <h2>Clinic Management Software</h2>
+    <div class="uc-why">Business Reason — Most clinics still operate on paper/WhatsApp, causing missed appointments, lost records, and billing errors that cost revenue and patient trust daily.</div>
+  </div>
+</div>
+
+<div class="doc-grid">
+  <div class="doc-card">
+    <h3>Problem Statement</h3>
+    <p>Independent clinics and small hospitals in India rely on physical registers, loose paper prescriptions, and WhatsApp messages to manage appointments and patient history. This leads to frequent appointment clashes, misplaced prescription files, manual billing errors, and zero follow-up visibility. Doctors spend time on paperwork instead of patients, and the lack of a digital record makes audits and reports impossible. A centralized clinic management system would eliminate these gaps entirely — enabling any staff member to book, bill, and retrieve records in seconds.</p>
+  </div>
+  <div class="doc-card">
+    <h3>Target Users</h3>
+    <p><strong>Primary:</strong> Clinic receptionist (appointment + billing)<br>
+    <strong>Secondary:</strong> Doctor (patient records, prescriptions)<br>
+    <strong>Admin/Owner:</strong> Daily reports, staff management<br><br>
+    <strong>Business Size:</strong> Solo to 5-doctor clinics, diagnostics labs, dental/eye clinics.</p>
+    <br>
+    <h3>Why This Business Would Invest</h3>
+    <p>A ₹15,000–₹40,000/yr software subscription easily pays for itself by recovering even one missed appointment per day. Patient retention improves with automated reminders, and insurance/GST billing compliance reduces legal risk.</p>
+  </div>
+  <div class="doc-card">
+    <h3>Key Features (minimum 5)</h3>
+    <ul class="feature-list">
+      <li><span class="feat-dot"></span><span><strong>Appointment Calendar</strong> — Book, reschedule, cancel with SMS/WhatsApp reminder auto-sent to patient</span></li>
+      <li><span class="feat-dot"></span><span><strong>Patient Records &amp; History</strong> — Digital profile with visit log, diagnosis history, allergies, vitals</span></li>
+      <li><span class="feat-dot"></span><span><strong>Digital Prescription</strong> — Doctor types medicine + dosage; printable PDF generated instantly</span></li>
+      <li><span class="feat-dot"></span><span><strong>Billing &amp; Invoicing</strong> — GST-compliant invoice generation, multiple payment modes, outstanding dues tracker</span></li>
+      <li><span class="feat-dot"></span><span><strong>Reports &amp; Analytics</strong> — Daily/weekly revenue, top diagnoses, patient visit trends</span></li>
+      <li><span class="feat-dot"></span><span><strong>Role-Based Access</strong> — Receptionist, doctor, and admin each see only what they need</span></li>
+    </ul>
+  </div>
+  <div class="doc-card">
+    <h3>Business Value</h3>
+    <ul class="feature-list">
+      <li><span class="feat-dot"></span>Zero double-bookings → happier patients, fewer walkouts</li>
+      <li><span class="feat-dot"></span>Digital prescriptions reduce pharmacy miscommunication errors</li>
+      <li><span class="feat-dot"></span>Automated billing reduces revenue leakage by 20–35%</li>
+      <li><span class="feat-dot"></span>Patient history at fingertips speeds up each consultation</li>
+      <li><span class="feat-dot"></span>Compliance-ready reports for GST, insurance, and audits</li>
+    </ul>
+  </div>
+</div>
+
+<!-- WIREFRAME 01 -->
+<div class="wf-label">Wireframe — Screen-by-Screen Prototype</div>
+<div class="screen-flow">
+  <div class="flow-screen">Login</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Dashboard</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Appointments</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Patient Records</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Prescription</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Billing</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Reports</div>
+</div>
+
+<div class="wf-screens">
+  <!-- SCREEN 1: Login -->
+  <div class="wf-screen">
+    <div class="wf-topbar"><span>Login</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="text-align:center; margin-bottom:8px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:800;">+</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">ClinicOS</div>
+        <div style="font-size:10px;color:var(--text3);">Clinic Management</div>
+      </div>
+      <div class="wf-input" data-label="Email / Phone"></div>
+      <div class="wf-input" data-label="Password"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:4px 0;">
+        <div style="display:flex;gap:4px;align-items:center;"><div style="width:10px;height:10px;border:1px solid var(--border);border-radius:2px;"></div><span style="font-size:9px;color:var(--text3);">Remember me</span></div>
+        <span style="font-size:9px;color:var(--accent);">Forgot password?</span>
+      </div>
+      <div class="wf-btn">Sign In</div>
+      <div style="font-size:9px;color:var(--text3);text-align:center;margin-top:6px;">Role: Receptionist / Doctor / Admin</div>
+    </div>
+    <div class="wf-note">Annotation: Secure role-based login. Each role routes to a different dashboard view on sign-in.</div>
+  </div>
+
+  <!-- SCREEN 2: Dashboard -->
+  <div class="wf-screen">
+    <div class="wf-topbar"><span>Dashboard</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-row">
+        <div class="wf-stat accent"><div class="stat-val">12</div><div class="stat-lbl">Today's Appts</div></div>
+        <div class="wf-stat"><div class="stat-val">8</div><div class="stat-lbl">Completed</div></div>
+        <div class="wf-stat"><div class="stat-val">₹6,400</div><div class="stat-lbl">Today's Revenue</div></div>
+      </div>
+      <div class="wf-section-label">Today's Schedule</div>
+      <div class="wf-list-item"><span><span class="wf-avatar">RK</span>Ravi Kumar · 10:30 AM</span><span class="badge badge-green">Done</span></div>
+      <div class="wf-list-item"><span><span class="wf-avatar">PM</span>Priya M. · 11:00 AM</span><span class="badge badge-amber">Waiting</span></div>
+      <div class="wf-list-item"><span><span class="wf-avatar">AS</span>Amit S. · 11:30 AM</span><span class="badge badge-blue">Upcoming</span></div>
+      <div class="wf-chart-bar">
+        <div class="bar" style="height:70%"></div><div class="bar light" style="height:50%"></div>
+        <div class="bar" style="height:85%"></div><div class="bar light" style="height:60%"></div>
+        <div class="bar" style="height:90%"></div><div class="bar light" style="height:40%"></div>
+        <div class="bar" style="height:75%"></div>
+      </div>
+      <div style="font-size:9px;color:var(--text3);text-align:center;">Revenue — last 7 days</div>
+    </div>
+    <div class="wf-note">Annotation: At-a-glance stats for receptionist. Revenue bar chart updates daily. Click any appointment row to open patient file.</div>
+  </div>
+
+  <!-- SCREEN 3: Appointment Booking -->
+  <div class="wf-screen">
+    <div class="wf-topbar"><span>Book Appointment</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-input" data-label="Search patient name / phone"></div>
+      <div class="wf-section-label">Select Doctor</div>
+      <div class="wf-row" style="margin-bottom:4px;">
+        <div class="wf-pill active-pill">Dr. Sharma</div>
+        <div class="wf-pill">Dr. Kapoor</div>
+        <div class="wf-pill">Dr. Nair</div>
+      </div>
+      <div class="wf-section-label">Pick Date &amp; Time</div>
+      <div style="background:var(--surface3);border-radius:6px;padding:8px;margin:3px 0;">
+        <div style="font-size:10px;font-weight:700;color:var(--text);text-align:center;margin-bottom:5px;">June 2026</div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;">
+          <div style="font-size:8px;color:var(--text3);font-weight:600;">Su</div><div style="font-size:8px;color:var(--text3);font-weight:600;">Mo</div><div style="font-size:8px;color:var(--text3);font-weight:600;">Tu</div><div style="font-size:8px;color:var(--text3);font-weight:600;">We</div><div style="font-size:8px;color:var(--text3);font-weight:600;">Th</div><div style="font-size:8px;color:var(--text3);font-weight:600;">Fr</div><div style="font-size:8px;color:var(--text3);font-weight:600;">Sa</div>
+          <div style="font-size:9px;color:var(--text3);">1</div><div style="font-size:9px;color:var(--text3);">2</div><div style="font-size:9px;color:var(--text3);">3</div><div style="font-size:9px;color:var(--text3);">4</div><div style="font-size:9px;color:var(--text3);">5</div><div style="font-size:9px;color:var(--text3);">6</div><div style="font-size:9px;color:var(--text3);">7</div>
+          <div style="font-size:9px;color:var(--text3);">8</div><div style="font-size:9px;color:var(--text3);">9</div><div style="font-size:9px;color:var(--text3);">10</div><div style="font-size:9px;font-weight:700;background:var(--accent);color:#fff;border-radius:3px;">11</div><div style="font-size:9px;color:var(--text3);">12</div><div style="font-size:9px;color:var(--text3);">13</div><div style="font-size:9px;color:var(--text3);">14</div>
+        </div>
+      </div>
+      <div class="wf-row" style="flex-wrap:wrap;gap:3px;margin-top:4px;">
+        <div class="wf-pill active-pill">10:00</div><div class="wf-pill">10:30</div><div class="wf-pill">11:00</div><div class="wf-pill" style="background:#f5e0e0;color:#c0392b;text-decoration:line-through;">11:30</div>
+      </div>
+      <div class="wf-btn">Confirm Booking</div>
+    </div>
+    <div class="wf-note">Annotation: Struck-through slots are already booked. 'Confirm Booking' auto-sends SMS reminder to patient. Red slots = unavailable.</div>
+  </div>
+
+  <!-- SCREEN 4: Patient Record -->
+  <div class="wf-screen">
+    <div class="wf-topbar"><span>Patient — Priya Mehta</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <div class="wf-avatar" style="width:32px;height:32px;font-size:11px;background:var(--accent);color:#fff;">PM</div>
+        <div>
+          <div style="font-size:12px;font-weight:700;">Priya Mehta · F, 34</div>
+          <div style="font-size:10px;color:var(--text3);">+91 98765 43210 · O+ Blood Group</div>
+        </div>
+      </div>
+      <hr class="wf-divider">
+      <div class="wf-section-label">Vitals (last visit)</div>
+      <div class="wf-row">
+        <div class="wf-stat"><div class="stat-val" style="font-size:12px;">120/80</div><div class="stat-lbl">BP (mmHg)</div></div>
+        <div class="wf-stat"><div class="stat-val" style="font-size:12px;">98.4°F</div><div class="stat-lbl">Temp</div></div>
+        <div class="wf-stat"><div class="stat-val" style="font-size:12px;">62 kg</div><div class="stat-lbl">Weight</div></div>
+      </div>
+      <div class="wf-section-label">Allergies</div>
+      <div style="margin:2px 0 6px;"><span class="badge badge-red">Penicillin</span> <span class="badge badge-red">Sulfa drugs</span></div>
+      <div class="wf-section-label">Visit History</div>
+      <div class="wf-list-item"><span>10 Jun 2026</span><span style="color:var(--text2);">Viral fever · Dr. Sharma</span></div>
+      <div class="wf-list-item"><span>02 Apr 2026</span><span style="color:var(--text2);">Routine checkup</span></div>
+      <div class="wf-btn outline">+ Add New Visit</div>
+    </div>
+    <div class="wf-note">Annotation: Full patient timeline visible. Red allergy badges alert doctor before prescribing. "+ Add New Visit" opens prescription form.</div>
+  </div>
+
+  <!-- SCREEN 5: Billing -->
+  <div class="wf-screen">
+    <div class="wf-topbar"><span>Billing — Invoice #1042</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Priya Mehta · 11 Jun 2026</div>
+      <table class="wf-table">
+        <thead><tr><th>Service</th><th>Qty</th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Consultation</td><td>1</td><td>₹500</td></tr>
+          <tr><td>Blood Test (CBC)</td><td>1</td><td>₹350</td></tr>
+          <tr><td>Paracetamol Strip</td><td>2</td><td>₹80</td></tr>
+        </tbody>
+      </table>
+      <hr class="wf-divider">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-top:4px;">
+        <span>Subtotal</span><span>₹930</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);">
+        <span>GST (5%)</span><span>₹46.50</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:var(--accent);margin-top:3px;">
+        <span>Total</span><span>₹976.50</span>
+      </div>
+      <div class="wf-section-label" style="margin-top:8px;">Payment Mode</div>
+      <div class="wf-row" style="margin-bottom:5px;">
+        <div class="wf-pill active-pill">UPI</div>
+        <div class="wf-pill">Cash</div>
+        <div class="wf-pill">Card</div>
+        <div class="wf-pill">Insurance</div>
+      </div>
+      <div class="wf-btn">Collect &amp; Generate PDF Invoice</div>
+    </div>
+    <div class="wf-note">Annotation: GST auto-calculated. "Collect & Generate PDF" marks bill as paid, prints receipt, and logs revenue in today's report.</div>
+  </div>
+
+  <!-- SCREEN 6: Reports -->
+  <div class="wf-screen">
+    <div class="wf-topbar"><span>Reports</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-row" style="margin-bottom:5px;">
+        <div class="wf-pill active-pill">Today</div>
+        <div class="wf-pill">This Week</div>
+        <div class="wf-pill">Month</div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-stat"><div class="stat-val">24</div><div class="stat-lbl">Patients</div></div>
+        <div class="wf-stat accent"><div class="stat-val">₹18,420</div><div class="stat-lbl">Revenue</div></div>
+      </div>
+      <div class="wf-section-label">Revenue Chart — June 2026</div>
+      <div class="wf-chart-bar">
+        <div class="bar" style="height:60%"></div><div class="bar light" style="height:75%"></div>
+        <div class="bar" style="height:40%"></div><div class="bar" style="height:90%"></div>
+        <div class="bar light" style="height:55%"></div><div class="bar" style="height:80%"></div>
+        <div class="bar light" style="height:45%"></div>
+      </div>
+      <div class="wf-section-label">Top Diagnoses</div>
+      <div class="wf-list-item"><span>Viral Fever</span><span class="badge badge-red">8 cases</span></div>
+      <div class="wf-list-item"><span>Hypertension</span><span class="badge badge-amber">5 cases</span></div>
+      <div class="wf-list-item"><span>Routine Checkup</span><span class="badge badge-green">11 cases</span></div>
+      <div class="wf-btn outline">Export PDF Report</div>
+    </div>
+    <div class="wf-note">Annotation: Admin view only. Bar chart tracks daily revenue. "Export PDF" generates a shareable clinic performance report for owner.</div>
+  </div>
+</div><!-- /wf-screens -->
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  USE CASE 02 — RESTAURANT BILLING & ORDER SYSTEM       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="use-case-header">
+  <div class="uc-num teal">02</div>
+  <div class="uc-title-block">
+    <h2>Restaurant Billing &amp; Order System</h2>
+    <div class="uc-why">Business Reason — Manual order-taking causes kitchen confusion, missed items, slow billing, and zero sales data, costing restaurants 15–30% in avoidable losses daily.</div>
+  </div>
+</div>
+
+<div class="doc-grid">
+  <div class="doc-card">
+    <h3>Problem Statement</h3>
+    <p>Most dhabas, small restaurants, and cafes in India still use paper notepads for order-taking, resulting in illegible kitchen orders, forgotten items, wrong bills, and slow table turnover. There is no way to track which table is occupied, what was ordered, or what's pending in the kitchen. The owner has no visibility into daily revenue or best-selling items without manually tallying receipts. A digital table + KOT + billing system would reduce errors by 80%, speed up service, and give the owner real-time business data.</p>
+  </div>
+  <div class="doc-card">
+    <h3>Target Users</h3>
+    <p><strong>Waiter/Server:</strong> Takes orders on tablet/phone at table<br>
+    <strong>Kitchen Staff:</strong> Sees live KOT (Kitchen Order Ticket) on screen<br>
+    <strong>Cashier:</strong> Generates &amp; settles final bill<br>
+    <strong>Owner/Manager:</strong> Daily sales reports &amp; menu management<br><br>
+    <strong>Business Size:</strong> 5–50 table restaurants, cafes, cloud kitchens, food courts.</p>
+    <br>
+    <h3>Why This Business Would Invest</h3>
+    <p>Faster table turnover (even 1 extra table per shift) = higher daily revenue. Elimination of manual billing errors removes staff theft risk. Inventory data from KOT helps reduce over-purchasing. A ₹10,000–₹25,000/yr system typically recovers its cost in the first month of saved food waste alone.</p>
+  </div>
+  <div class="doc-card">
+    <h3>Key Features (minimum 5)</h3>
+    <ul class="feature-list">
+      <li><span class="feat-dot teal"></span><span><strong>Table Management</strong> — Visual floor map showing free/occupied/reserved tables with order status</span></li>
+      <li><span class="feat-dot teal"></span><span><strong>Digital Menu &amp; Order Taking</strong> — Category-wise menu with photo/price, waiter taps to add, modifiers (spice, portion size)</span></li>
+      <li><span class="feat-dot teal"></span><span><strong>KOT (Kitchen Order Ticket)</strong> — Order fires instantly to kitchen display/printer; partial orders supported</span></li>
+      <li><span class="feat-dot teal"></span><span><strong>Smart Billing</strong> — Auto-calculated bill with GST, discount, split bill, UPI/cash/card settlement</span></li>
+      <li><span class="feat-dot teal"></span><span><strong>Daily Sales Dashboard</strong> — Revenue by hour, best sellers, covers count, table turnover rate</span></li>
+      <li><span class="feat-dot teal"></span><span><strong>Menu Management</strong> — Owner marks items unavailable in real-time; price updates instantly across all devices</span></li>
+    </ul>
+  </div>
+  <div class="doc-card">
+    <h3>Business Value</h3>
+    <ul class="feature-list">
+      <li><span class="feat-dot teal"></span>Eliminates wrong orders and missing items → better guest experience</li>
+      <li><span class="feat-dot teal"></span>Kitchen gets legible, ordered tickets → faster food service</li>
+      <li><span class="feat-dot teal"></span>Split billing &amp; multi-pay modes → no lost revenue from payment friction</li>
+      <li><span class="feat-dot teal"></span>Sales analytics help owner decide what to push, what to cut</li>
+      <li><span class="feat-dot teal"></span>Reduces need for extra cashier staff → direct cost savings</li>
+    </ul>
+  </div>
+</div>
+
+<!-- WIREFRAME 02 -->
+<div class="wf-label">Wireframe — Screen-by-Screen Prototype</div>
+<div class="screen-flow">
+  <div class="flow-screen">Login</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Table Map</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Digital Menu</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">KOT View</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Billing</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Sales Dashboard</div>
+</div>
+
+<div class="wf-screens">
+  <!-- SCREEN 1: Table Map -->
+  <div class="wf-screen">
+    <div class="wf-topbar teal-bar"><span>Table Map — Floor 1</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-row" style="margin-bottom:6px;">
+        <div class="wf-pill teal-pill">Floor 1</div>
+        <div class="wf-pill">Floor 2</div>
+        <div class="wf-pill">Terrace</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">
+        <div style="background:#caf0f8;border:2px solid #0077b6;border-radius:8px;padding:8px 5px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#023e8a;">T-01</div>
+          <div style="font-size:9px;color:#0077b6;">2 guests</div>
+          <div style="font-size:8px;color:#0077b6;margin-top:2px;">32 min</div>
+        </div>
+        <div style="background:#d8f3dc;border:2px solid #2d6a4f;border-radius:8px;padding:8px 5px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#1b4332;">T-02</div>
+          <div style="font-size:9px;color:#2d6a4f;">Free</div>
+        </div>
+        <div style="background:#ffe5e5;border:2px solid #c0392b;border-radius:8px;padding:8px 5px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#7b0000;">T-03</div>
+          <div style="font-size:9px;color:#c0392b;">4 guests</div>
+          <div style="font-size:8px;color:#c0392b;margin-top:2px;">Billing due</div>
+        </div>
+        <div style="background:#caf0f8;border:2px solid #0077b6;border-radius:8px;padding:8px 5px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#023e8a;">T-04</div>
+          <div style="font-size:9px;color:#0077b6;">3 guests</div>
+          <div style="font-size:8px;color:#0077b6;margin-top:2px;">18 min</div>
+        </div>
+        <div style="background:#d8f3dc;border:2px solid #2d6a4f;border-radius:8px;padding:8px 5px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#1b4332;">T-05</div>
+          <div style="font-size:9px;color:#2d6a4f;">Free</div>
+        </div>
+        <div style="background:#fff3cd;border:2px solid #a0522d;border-radius:8px;padding:8px 5px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#6b3a1f;">T-06</div>
+          <div style="font-size:9px;color:#a0522d;">Reserved</div>
+          <div style="font-size:8px;color:#a0522d;margin-top:2px;">7:30 PM</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="display:flex;align-items:center;gap:3px;font-size:9px;color:var(--text3);"><span style="width:8px;height:8px;background:#caf0f8;border:1px solid #0077b6;border-radius:2px;"></span>Occupied</span>
+        <span style="display:flex;align-items:center;gap:3px;font-size:9px;color:var(--text3);"><span style="width:8px;height:8px;background:#d8f3dc;border:1px solid #2d6a4f;border-radius:2px;"></span>Free</span>
+        <span style="display:flex;align-items:center;gap:3px;font-size:9px;color:var(--text3);"><span style="width:8px;height:8px;background:#ffe5e5;border:1px solid #c0392b;border-radius:2px;"></span>Bill Due</span>
+        <span style="display:flex;align-items:center;gap:3px;font-size:9px;color:var(--text3);"><span style="width:8px;height:8px;background:#fff3cd;border:1px solid #a0522d;border-radius:2px;"></span>Reserved</span>
+      </div>
+    </div>
+    <div class="wf-note">Annotation: Color-coded table grid. Tap free table → start order. Tap "Bill Due" table → open billing screen. Timer shows session duration.</div>
+  </div>
+
+  <!-- SCREEN 2: Digital Menu / Order Taking -->
+  <div class="wf-screen">
+    <div class="wf-topbar teal-bar"><span>Order — Table 01</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-row" style="margin-bottom:5px;flex-wrap:wrap;gap:3px;">
+        <div class="wf-pill teal-pill">Starters</div>
+        <div class="wf-pill">Mains</div>
+        <div class="wf-pill">Breads</div>
+        <div class="wf-pill">Drinks</div>
+        <div class="wf-pill">Desserts</div>
+      </div>
+      <div class="wf-section-label">Starters</div>
+      <div class="wf-list-item">
+        <span>Paneer Tikka</span>
+        <span style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:10px;font-weight:600;">₹220</span>
+          <div style="width:18px;height:18px;border-radius:50%;background:#0077b6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;">+</div>
+        </span>
+      </div>
+      <div class="wf-list-item">
+        <span>Veg Spring Roll</span>
+        <span style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:10px;font-weight:600;">₹180</span>
+          <div style="width:18px;height:18px;border-radius:50%;background:#0077b6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;">+</div>
+        </span>
+      </div>
+      <div class="wf-list-item">
+        <span>Chicken 65 <span class="badge badge-red" style="font-size:8px;">Spicy</span></span>
+        <span style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:10px;font-weight:600;">₹280</span>
+          <div style="display:flex;align-items:center;gap:3px;background:#0077b6;border-radius:10px;padding:2px 6px;">
+            <span style="color:#fff;font-size:11px;font-weight:700;">-</span>
+            <span style="color:#fff;font-size:10px;font-weight:700;">2</span>
+            <span style="color:#fff;font-size:11px;font-weight:700;">+</span>
+          </div>
+        </span>
+      </div>
+      <hr class="wf-divider">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-size:10px;color:var(--text3);">3 items · ₹740</div></div>
+        <div class="wf-btn teal-btn" style="width:auto;padding:5px 14px;">Send KOT</div>
+      </div>
+    </div>
+    <div class="wf-note">Annotation: "+" adds item to current order cart shown at bottom. "Send KOT" fires order to kitchen display. Counter shows live item count + total.</div>
+  </div>
+
+  <!-- SCREEN 3: KOT (Kitchen View) -->
+  <div class="wf-screen">
+    <div class="wf-topbar teal-bar"><span>Kitchen Display — KOT</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <!-- KOT Card 1 -->
+        <div style="border:2px solid #0077b6;border-radius:8px;padding:8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <div style="font-size:11px;font-weight:800;color:#023e8a;">T-01</div>
+            <span class="badge badge-amber" style="font-size:8px;">12 min</span>
+          </div>
+          <div style="font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:3px;">2x Paneer Tikka</div>
+          <div style="font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:3px;">1x Dal Makhani</div>
+          <div style="font-size:10px;color:var(--text2);">3x Butter Naan</div>
+          <div class="wf-btn teal-btn" style="font-size:9px;padding:4px;margin-top:6px;">Mark Ready</div>
+        </div>
+        <!-- KOT Card 2 -->
+        <div style="border:2px solid #c0392b;border-radius:8px;padding:8px;background:#fff5f5;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <div style="font-size:11px;font-weight:800;color:#7b0000;">T-03</div>
+            <span class="badge badge-red" style="font-size:8px;">22 min !</span>
+          </div>
+          <div style="font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:3px;">1x Chicken Biryani</div>
+          <div style="font-size:10px;color:var(--text2);">2x Raita</div>
+          <div style="font-size:9px;color:#c0392b;font-weight:600;margin-top:4px;">⚠ DELAYED</div>
+          <div class="wf-btn" style="background:#c0392b;color:#fff;font-size:9px;padding:4px;margin-top:4px;">Mark Ready</div>
+        </div>
+        <!-- KOT Card 3 -->
+        <div style="border:2px solid #2d6a4f;border-radius:8px;padding:8px;background:#f0fdf4;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <div style="font-size:11px;font-weight:800;color:#1b4332;">T-04</div>
+            <span class="badge badge-green" style="font-size:8px;">Ready ✓</span>
+          </div>
+          <div style="font-size:10px;color:var(--text2);">Veggie Burger × 2</div>
+          <div style="font-size:10px;color:var(--text2);">Cold Coffee × 2</div>
+          <div class="wf-btn" style="background:#2d6a4f;color:#fff;font-size:9px;padding:4px;margin-top:6px;">Served ✓</div>
+        </div>
+        <!-- New Order indicator -->
+        <div style="border:2px dashed #0077b6;border-radius:8px;padding:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+          <div style="font-size:18px;color:#0077b6;font-weight:300;">+</div>
+          <div style="font-size:10px;color:#0077b6;font-weight:600;text-align:center;">New KOT appears here instantly</div>
+        </div>
+      </div>
+    </div>
+    <div class="wf-note">Annotation: Kitchen-facing screen, no login needed on a wall-mounted tablet. Red = delayed order. Timer auto-flags after set threshold. "Served" removes KOT card.</div>
+  </div>
+
+  <!-- SCREEN 4: Billing Screen -->
+  <div class="wf-screen">
+    <div class="wf-topbar teal-bar"><span>Bill — Table 03</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="font-size:10px;color:var(--text3);margin-bottom:5px;">4 guests · Session: 48 min · Waiter: Raj</div>
+      <table class="wf-table">
+        <thead><tr><th>Item</th><th>Qty</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>Chicken Biryani</td><td>1</td><td>₹320</td></tr>
+          <tr><td>Raita</td><td>2</td><td>₹80</td></tr>
+          <tr><td>Butter Lassi</td><td>2</td><td>₹160</td></tr>
+          <tr><td>Garlic Naan</td><td>3</td><td>₹120</td></tr>
+        </tbody>
+      </table>
+      <hr class="wf-divider">
+      <div style="font-size:10px;display:flex;justify-content:space-between;"><span>Subtotal</span><span>₹680</span></div>
+      <div style="font-size:10px;display:flex;justify-content:space-between;color:var(--text3);"><span>CGST 2.5%</span><span>₹17</span></div>
+      <div style="font-size:10px;display:flex;justify-content:space-between;color:var(--text3);"><span>SGST 2.5%</span><span>₹17</span></div>
+      <div style="font-size:10px;display:flex;justify-content:space-between;color:var(--text3);"><span>Discount (10%)</span><span style="color:#2d6a4f;">- ₹68</span></div>
+      <div style="font-size:13px;font-weight:800;display:flex;justify-content:space-between;color:#0077b6;margin-top:4px;"><span>Grand Total</span><span>₹646</span></div>
+      <div class="wf-section-label" style="margin-top:6px;">Split Bill?</div>
+      <div class="wf-row" style="margin-bottom:5px;">
+        <div class="wf-pill">No Split</div>
+        <div class="wf-pill teal-pill">2 Ways</div>
+        <div class="wf-pill">4 Ways</div>
+      </div>
+      <div class="wf-btn teal-btn">Settle &amp; Print Receipt</div>
+    </div>
+    <div class="wf-note">Annotation: All ordered items pulled automatically from KOT. Discount field applies loyalty or manual coupon. "Settle" marks table as free on the floor map.</div>
+  </div>
+
+  <!-- SCREEN 5: Sales Dashboard -->
+  <div class="wf-screen">
+    <div class="wf-topbar teal-bar"><span>Sales Dashboard</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-row">
+        <div class="wf-pill teal-pill">Today</div>
+        <div class="wf-pill">Week</div>
+        <div class="wf-pill">Month</div>
+      </div>
+      <div class="wf-row" style="margin:5px 0;">
+        <div class="wf-stat teal"><div class="stat-val">₹22,800</div><div class="stat-lbl">Revenue</div></div>
+        <div class="wf-stat"><div class="stat-val">84</div><div class="stat-lbl">Covers</div></div>
+        <div class="wf-stat"><div class="stat-val">18</div><div class="stat-lbl">Tables served</div></div>
+      </div>
+      <div class="wf-section-label">Revenue by Hour</div>
+      <div class="wf-chart-bar">
+        <div class="bar teal" style="height:30%"></div>
+        <div class="bar teal" style="height:60%"></div>
+        <div class="bar teal" style="height:90%"></div>
+        <div class="bar teal light" style="height:45%"></div>
+        <div class="bar teal" style="height:75%"></div>
+        <div class="bar teal" style="height:100%"></div>
+        <div class="bar teal light" style="height:55%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--text3);">
+        <span>11am</span><span>12pm</span><span>1pm</span><span>2pm</span><span>7pm</span><span>8pm</span><span>9pm</span>
+      </div>
+      <div class="wf-section-label">Best Sellers Today</div>
+      <div class="wf-list-item"><span>Chicken Biryani</span><span class="badge badge-blue">32 orders</span></div>
+      <div class="wf-list-item"><span>Butter Naan</span><span class="badge badge-blue">58 orders</span></div>
+    </div>
+    <div class="wf-note">Annotation: Owner/manager view. Peak hour chart helps with staffing decisions. Best-sellers data drives menu and procurement planning.</div>
+  </div>
+
+  <!-- SCREEN 6: Menu Management -->
+  <div class="wf-screen">
+    <div class="wf-topbar teal-bar"><span>Manage Menu</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-btn teal-btn outline" style="color:#0077b6;margin-bottom:8px;">+ Add New Item</div>
+      <div class="wf-section-label">Starters (8 items)</div>
+      <div class="wf-list-item">
+        <span style="display:flex;align-items:center;gap:5px;"><span style="font-size:10px;">Paneer Tikka</span><span style="font-size:9px;color:var(--text3);">₹220</span></span>
+        <div class="wf-toggle teal"></div>
+      </div>
+      <div class="wf-list-item">
+        <span style="display:flex;align-items:center;gap:5px;"><span style="font-size:10px;">Veg Manchurian</span><span style="font-size:9px;color:var(--text3);">₹180</span></span>
+        <div class="wf-toggle teal"></div>
+      </div>
+      <div class="wf-list-item">
+        <span style="display:flex;align-items:center;gap:5px;"><span style="font-size:10px;text-decoration:line-through;color:var(--text3);">Fish Tikka</span><span class="badge badge-red" style="font-size:8px;">Off</span></span>
+        <div style="width:28px;height:14px;background:var(--border);border-radius:7px;position:relative;"><div style="position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;top:2px;left:2px;"></div></div>
+      </div>
+      <div class="wf-section-label">Mains (12 items)</div>
+      <div class="wf-list-item">
+        <span style="display:flex;align-items:center;gap:5px;"><span style="font-size:10px;">Dal Makhani</span><span style="font-size:9px;color:var(--text3);">₹280</span></span>
+        <div class="wf-toggle teal"></div>
+      </div>
+      <div class="wf-btn outline" style="font-size:10px;margin-top:8px;">Export Menu as PDF</div>
+    </div>
+    <div class="wf-note">Annotation: Toggle OFF marks item as "unavailable" — grays it out for all waiters instantly. Owner can update prices without any rebuild or refresh.</div>
+  </div>
+</div><!-- /wf-screens -->
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  USE CASE 03 — REAL ESTATE CRM                         -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="use-case-header">
+  <div class="uc-num green">03</div>
+  <div class="uc-title-block">
+    <h2>Real Estate CRM</h2>
+    <div class="uc-why">Business Reason — Real estate agents lose 40–60% of leads due to missed follow-ups managed on WhatsApp; a dedicated CRM with reminders and property matching directly converts that to commission revenue.</div>
+  </div>
+</div>
+
+<div class="doc-grid">
+  <div class="doc-card">
+    <h3>Problem Statement</h3>
+    <p>Independent real estate agents and small brokerages in India manage hundreds of potential buyers and sellers through a chaotic mix of WhatsApp chats, Excel sheets, and mental notes. Leads fall through the cracks because there is no follow-up system, no way to match client requirements to available properties, and no communication log to refer back to. Agents waste hours searching through chats for property details shared earlier. A purpose-built Real Estate CRM would centralize leads, properties, follow-up tasks, and client communication — directly increasing deal closure rates and reducing agent burnout.</p>
+  </div>
+  <div class="doc-card">
+    <h3>Target Users</h3>
+    <p><strong>Real Estate Agent:</strong> Manages leads, property listings, site visits<br>
+    <strong>Agency Admin:</strong> Assigns leads to agents, tracks overall pipeline<br>
+    <strong>Broker/Owner:</strong> Revenue pipeline, team performance overview<br><br>
+    <strong>Business Size:</strong> Solo agents to 30-agent brokerages; both residential and commercial segments.</p>
+    <br>
+    <h3>Why This Business Would Invest</h3>
+    <p>Even one extra deal per month from a recovered lead pays for a year of CRM subscription. Real estate margins are high — the ROI calculation is simple. Investors and HNI clients also expect professional, documented communication, making a CRM a trust signal as much as a productivity tool.</p>
+  </div>
+  <div class="doc-card">
+    <h3>Key Features (minimum 5)</h3>
+    <ul class="feature-list">
+      <li><span class="feat-dot green"></span><span><strong>Lead Management &amp; Pipeline</strong> — Kanban view: New → Contacted → Site Visit → Negotiation → Closed. Drag leads across stages</span></li>
+      <li><span class="feat-dot green"></span><span><strong>Property Listings</strong> — Upload photos, floor plans, price, amenities; link properties to matching client requirements</span></li>
+      <li><span class="feat-dot green"></span><span><strong>Auto Follow-Up Reminders</strong> — Set follow-up date; system sends in-app + WhatsApp reminder at the right time</span></li>
+      <li><span class="feat-dot green"></span><span><strong>Client Communication Log</strong> — All calls, WhatsApp messages, emails, and site visits logged in one thread per client</span></li>
+      <li><span class="feat-dot green"></span><span><strong>Document Management</strong> — Upload &amp; store sale agreement, KYC, property docs; share with client via secure link</span></li>
+      <li><span class="feat-dot green"></span><span><strong>Pipeline &amp; Revenue Reports</strong> — Deals in progress, expected revenue, closed vs. lost, agent-wise performance</span></li>
+    </ul>
+  </div>
+  <div class="doc-card">
+    <h3>Business Value</h3>
+    <ul class="feature-list">
+      <li><span class="feat-dot green"></span>Never lose a lead to a missed follow-up again → direct revenue recovery</li>
+      <li><span class="feat-dot green"></span>Property-to-client matching saves hours of manual search per day</li>
+      <li><span class="feat-dot green"></span>Complete communication log builds professional client relationships</li>
+      <li><span class="feat-dot green"></span>Document storage eliminates paperwork chaos and version confusion</li>
+      <li><span class="feat-dot green"></span>Pipeline view gives broker real-time revenue forecast accuracy</li>
+    </ul>
+  </div>
+</div>
+
+<!-- WIREFRAME 03 -->
+<div class="wf-label">Wireframe — Screen-by-Screen Prototype</div>
+<div class="screen-flow">
+  <div class="flow-screen">Login</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Dashboard</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Lead Pipeline</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Client Profile</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Property Listings</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Documents</div><div class="flow-arrow">→</div>
+  <div class="flow-screen">Reports</div>
+</div>
+
+<div class="wf-screens">
+  <!-- SCREEN 1: Dashboard -->
+  <div class="wf-screen">
+    <div class="wf-topbar green-bar"><span>CRM Dashboard</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-section-label">Today's To-Do</div>
+      <div class="wf-list-item"><span>📞 Follow up — Arjun Verma</span><span class="badge badge-red">Overdue</span></div>
+      <div class="wf-list-item"><span>🏠 Site visit — Priya &amp; Rohit</span><span class="badge badge-amber">3:00 PM</span></div>
+      <div class="wf-list-item"><span>📄 Send docs — Kavita Nair</span><span class="badge badge-blue">Pending</span></div>
+      <div class="wf-row" style="margin:6px 0;">
+        <div class="wf-stat green-val"><div class="stat-val">28</div><div class="stat-lbl">Active Leads</div></div>
+        <div class="wf-stat"><div class="stat-val">₹1.2 Cr</div><div class="stat-lbl">Pipeline Value</div></div>
+        <div class="wf-stat green-val"><div class="stat-val">4</div><div class="stat-lbl">Deals Closing</div></div>
+      </div>
+      <div class="wf-section-label">Pipeline Snapshot</div>
+      <div style="display:flex;gap:4px;align-items:flex-end;height:40px;margin-bottom:3px;">
+        <div style="flex:1;background:#d8f3dc;border-radius:3px 3px 0 0;height:80%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2d6a4f;font-weight:700;">New<br>12</div>
+        <div style="flex:1;background:#caf0f8;border-radius:3px 3px 0 0;height:60%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#0077b6;font-weight:700;">Talk<br>8</div>
+        <div style="flex:1;background:#fff3cd;border-radius:3px 3px 0 0;height:40%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#a0522d;font-weight:700;">Visit<br>5</div>
+        <div style="flex:1;background:#ffe5e5;border-radius:3px 3px 0 0;height:30%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#c0392b;font-weight:700;">Nego<br>3</div>
+      </div>
+    </div>
+    <div class="wf-note">Annotation: Overdue tasks highlighted in red to grab agent's attention first. Pipeline bar gives instant deal-stage health view without entering the kanban.</div>
+  </div>
+
+  <!-- SCREEN 2: Lead Pipeline (Kanban) -->
+  <div class="wf-screen">
+    <div class="wf-topbar green-bar"><span>Lead Pipeline</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="overflow-x:auto;">
+        <div style="display:flex;gap:6px;min-width:420px;">
+          <!-- New -->
+          <div style="flex:1;min-width:80px;">
+            <div style="font-size:9px;font-weight:700;color:#2d6a4f;background:#d8f3dc;border-radius:5px;padding:3px 6px;margin-bottom:4px;text-align:center;">NEW (3)</div>
+            <div style="background:#f8fffe;border:1px solid #b7e4c7;border-radius:6px;padding:6px;margin-bottom:4px;">
+              <div style="font-size:9px;font-weight:700;">Arjun V.</div>
+              <div style="font-size:8px;color:var(--text3);">3BHK · Dwarka</div>
+              <div style="font-size:8px;color:var(--text3);">₹85L budget</div>
+            </div>
+            <div style="background:#f8fffe;border:1px solid #b7e4c7;border-radius:6px;padding:6px;">
+              <div style="font-size:9px;font-weight:700;">Sneha B.</div>
+              <div style="font-size:8px;color:var(--text3);">2BHK · Noida</div>
+            </div>
+          </div>
+          <!-- Contacted -->
+          <div style="flex:1;min-width:80px;">
+            <div style="font-size:9px;font-weight:700;color:#0077b6;background:#caf0f8;border-radius:5px;padding:3px 6px;margin-bottom:4px;text-align:center;">TALKED (2)</div>
+            <div style="background:#f0faff;border:1px solid #90e0ef;border-radius:6px;padding:6px;">
+              <div style="font-size:9px;font-weight:700;">Priya &amp; Rohit</div>
+              <div style="font-size:8px;color:var(--text3);">Villa · Gurgaon</div>
+              <div style="font-size:8px;color:#2d6a4f;font-weight:600;">Site visit 3PM</div>
+            </div>
+          </div>
+          <!-- Negotiation -->
+          <div style="flex:1;min-width:80px;">
+            <div style="font-size:9px;font-weight:700;color:#a0522d;background:#fff3cd;border-radius:5px;padding:3px 6px;margin-bottom:4px;text-align:center;">NEGO (1)</div>
+            <div style="background:#fffdf0;border:1px solid #ffd166;border-radius:6px;padding:6px;">
+              <div style="font-size:9px;font-weight:700;">Kavita N.</div>
+              <div style="font-size:8px;color:var(--text3);">4BHK · Rohini</div>
+              <div style="font-size:8px;color:#c0392b;font-weight:600;">Counter offer</div>
+            </div>
+          </div>
+          <!-- Closed -->
+          <div style="flex:1;min-width:80px;">
+            <div style="font-size:9px;font-weight:700;color:#155724;background:#d4edda;border-radius:5px;padding:3px 6px;margin-bottom:4px;text-align:center;">CLOSED (2)</div>
+            <div style="background:#f0fdf4;border:1px solid #95d5b2;border-radius:6px;padding:6px;">
+              <div style="font-size:9px;font-weight:700;color:#2d6a4f;">Sharma Family</div>
+              <div style="font-size:8px;color:var(--text3);">₹1.1 Cr ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-btn green-btn" style="margin-top:8px;">+ Add New Lead</div>
+    </div>
+    <div class="wf-note">Annotation: Drag-and-drop cards between stages. Card color matches stage. Tap any card to open full client profile. "Closed" cards show deal value for quick revenue count.</div>
+  </div>
+
+  <!-- SCREEN 3: Client Profile -->
+  <div class="wf-screen">
+    <div class="wf-topbar green-bar"><span>Client — Arjun Verma</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
+        <div class="wf-avatar" style="width:32px;height:32px;font-size:11px;background:#2d6a4f;color:#fff;">AV</div>
+        <div>
+          <div style="font-size:12px;font-weight:700;">Arjun Verma</div>
+          <div style="font-size:10px;color:var(--text3);">+91 99110 08822 · New Delhi</div>
+        </div>
+        <span class="badge badge-green" style="margin-left:auto;">New Lead</span>
+      </div>
+      <div class="wf-section-label">Requirements</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px;">
+        <span class="wf-pill">3BHK</span><span class="wf-pill">Dwarka / Janakpuri</span><span class="wf-pill">₹75–90L</span><span class="wf-pill">Ready-to-move</span>
+      </div>
+      <div class="wf-section-label">Matched Properties</div>
+      <div class="wf-list-item"><span style="font-size:10px;">Dwarka Sec-12 · 3BHK · ₹82L</span><span class="badge badge-green" style="font-size:8px;">Match ✓</span></div>
+      <div class="wf-list-item"><span style="font-size:10px;">Janakpuri D-Block · 3BHK · ₹78L</span><span class="badge badge-green" style="font-size:8px;">Match ✓</span></div>
+      <div class="wf-section-label">Communication Log</div>
+      <div style="font-size:10px;background:#f0fdf4;border-left:2px solid #2d6a4f;padding:5px 8px;border-radius:0 5px 5px 0;margin-bottom:3px;"><span style="color:var(--text3);font-size:9px;">10 Jun · Call · </span>Interested in Dwarka. Wants site visit this week.</div>
+      <div class="wf-btn green-btn">Set Follow-Up Reminder</div>
+    </div>
+    <div class="wf-note">Annotation: System auto-matches properties to client budget and location. Log captures every interaction. "Set Follow-Up" opens date/time picker and sends WhatsApp alert at that time.</div>
+  </div>
+
+  <!-- SCREEN 4: Property Listings -->
+  <div class="wf-screen">
+    <div class="wf-topbar green-bar"><span>Property Listings</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-input" data-label="Search location, BHK, price..."></div>
+      <div class="wf-row" style="margin:4px 0;flex-wrap:wrap;gap:3px;">
+        <div class="wf-pill green-pill">All</div>
+        <div class="wf-pill">2BHK</div>
+        <div class="wf-pill">3BHK</div>
+        <div class="wf-pill">Villa</div>
+        <div class="wf-pill">Commercial</div>
+      </div>
+      <!-- Property Card 1 -->
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:5px 0;">
+        <div style="background:#d8f3dc;height:40px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#2d6a4f;font-weight:600;">📷 3 Photos</div>
+        <div style="padding:7px 8px;">
+          <div style="font-size:11px;font-weight:700;">Dwarka Sec-12 · 3BHK · 1350 sq ft</div>
+          <div style="font-size:10px;color:#2d6a4f;font-weight:600;">₹82 Lakh · Ready-to-move</div>
+          <div style="font-size:9px;color:var(--text3);">Floor 4/8 · 2 Parking · RERA: DL2024AB1234</div>
+          <div style="display:flex;gap:4px;margin-top:4px;">
+            <span class="wf-pill" style="font-size:8px;">Gym</span><span class="wf-pill" style="font-size:8px;">Lift</span><span class="wf-pill" style="font-size:8px;">Power backup</span>
+          </div>
+        </div>
+      </div>
+      <!-- Property Card 2 -->
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:#caf0f8;height:32px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0077b6;font-weight:600;">📷 5 Photos</div>
+        <div style="padding:7px 8px;">
+          <div style="font-size:11px;font-weight:700;">Janakpuri D-Block · 3BHK</div>
+          <div style="font-size:10px;color:#2d6a4f;font-weight:600;">₹78 Lakh</div>
+          <div style="font-size:9px;color:var(--text3);">Floor 2/5 · 1 Parking</div>
+        </div>
+      </div>
+      <div class="wf-btn green-btn" style="margin-top:8px;">+ Add New Property</div>
+    </div>
+    <div class="wf-note">Annotation: Each property card links to full listing with photo gallery, floor plan PDF, and a "Share with Client" button that sends a clean property brief via WhatsApp.</div>
+  </div>
+
+  <!-- SCREEN 5: Documents -->
+  <div class="wf-screen">
+    <div class="wf-topbar green-bar"><span>Documents — Arjun Verma</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-section-label">KYC Documents</div>
+      <div class="wf-list-item"><span>📄 Aadhaar Card.pdf</span><span class="badge badge-green">Verified</span></div>
+      <div class="wf-list-item"><span>📄 PAN Card.pdf</span><span class="badge badge-green">Verified</span></div>
+      <div class="wf-list-item"><span>📄 Bank Statement (6M).pdf</span><span class="badge badge-amber">Pending review</span></div>
+      <div class="wf-section-label">Property Documents</div>
+      <div class="wf-list-item"><span>📋 Sale Agreement — Draft v1.pdf</span><span class="badge badge-blue">Shared</span></div>
+      <div class="wf-list-item"><span>📋 Property Title Deed.pdf</span><span class="badge badge-green">Uploaded</span></div>
+      <div class="wf-list-item"><span>📋 NOC — Builder.pdf</span><span class="badge badge-red">Missing</span></div>
+      <div class="wf-section-label">Share Document</div>
+      <div class="wf-input" data-label="Select document to share"></div>
+      <div class="wf-btn green-btn">Generate Secure Share Link</div>
+    </div>
+    <div class="wf-note">Annotation: Documents tied to each client/deal. "Pending" and "Missing" badges highlight gaps agent must chase. "Secure Share Link" gives client 7-day download access without email attachment.</div>
+  </div>
+
+  <!-- SCREEN 6: Revenue Reports -->
+  <div class="wf-screen">
+    <div class="wf-topbar green-bar"><span>Reports &amp; Pipeline</span><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    <div class="wf-body">
+      <div class="wf-row" style="margin-bottom:5px;">
+        <div class="wf-stat green-val"><div class="stat-val">₹48L</div><div class="stat-lbl">Commission Pipeline</div></div>
+        <div class="wf-stat"><div class="stat-val">6</div><div class="stat-lbl">Deals Closing</div></div>
+      </div>
+      <div class="wf-section-label">Deals Closed — 2026</div>
+      <div class="wf-chart-bar">
+        <div class="bar green" style="height:40%"></div>
+        <div class="bar green light" style="height:65%"></div>
+        <div class="bar green" style="height:80%"></div>
+        <div class="bar green light" style="height:55%"></div>
+        <div class="bar green" style="height:90%"></div>
+        <div class="bar green light" style="height:70%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--text3);margin-bottom:5px;">
+        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+      </div>
+      <div class="wf-section-label">Agent Leaderboard</div>
+      <div class="wf-list-item"><span>🥇 Rahul M.</span><span>₹18.2L revenue</span></div>
+      <div class="wf-list-item"><span>🥈 Sunita K.</span><span>₹14.7L revenue</span></div>
+      <div class="wf-list-item"><span>🥉 Vikram J.</span><span>₹12.1L revenue</span></div>
+      <div class="wf-btn outline" style="font-size:10px;margin-top:8px;">Export Report — PDF</div>
+    </div>
+    <div class="wf-note">Annotation: Broker/owner view only. Pipeline value = expected commissions from deals in progress. Agent leaderboard motivates team performance and helps owner allocate hot leads.</div>
+  </div>
+</div><!-- /wf-screens -->
+
+<!-- SUMMARY ROW -->
+<div style="margin-top:48px;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);">
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:16px;">Submission Summary</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+    <div style="background:var(--surface2);border-radius:8px;padding:14px;">
+      <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:4px;">USE CASE 01</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Clinic Management</div>
+      <div style="font-size:11px;color:var(--text2);">6 screens · 6 key features<br>Target: Clinic receptionists &amp; doctors<br>Business value: Zero missed appts, GST billing</div>
+    </div>
+    <div style="background:var(--surface2);border-radius:8px;padding:14px;">
+      <div style="font-size:10px;font-weight:700;color:#0077b6;margin-bottom:4px;">USE CASE 02</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Restaurant Billing</div>
+      <div style="font-size:11px;color:var(--text2);">6 screens · 6 key features<br>Target: Waiters, kitchen staff, owner<br>Business value: Faster service, sales analytics</div>
+    </div>
+    <div style="background:var(--surface2);border-radius:8px;padding:14px;">
+      <div style="font-size:10px;font-weight:700;color:#2d6a4f;margin-bottom:4px;">USE CASE 03</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Real Estate CRM</div>
+      <div style="font-size:11px;color:var(--text2);">6 screens · 6 key features<br>Target: Agents, brokers, admins<br>Business value: Zero lost leads, deal tracking</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;padding:12px;background:#f0fdf4;border:1px solid #b7e4c7;border-radius:8px;font-size:12px;color:#2d6a4f;">
+    ✓ 3 Use Cases selected with business justification &nbsp;·&nbsp; ✓ 3 Problem Statements (4–5 lines each) &nbsp;·&nbsp; ✓ 18 Wireframe Screens total (6 per use case) &nbsp;·&nbsp; ✓ All screens annotated &nbsp;·&nbsp; ✓ 3 Use Case Documents (Problem · Target Users · Features · Business Value)
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer"><strong>Prepared by Shivam Sharma</strong></div></body>
+</html>
